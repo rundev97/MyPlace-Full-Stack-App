@@ -1,0 +1,29 @@
+<% include ../layout/header %>
+    <div class='container text-center'>
+    
+    
+    <h1>Add a new place</h1>
+    <br>
+    <form action='/placecamp' method='POST'>
+        <div class='container' style='width: 35%'>
+            <div class='form-group'>
+                <input class='form-control' type='text' name='newname' placeholder='Name'></input>
+            </div>
+            <div class='form-group'>
+                <input class='form-control'type='text' name='newcity' placeholder='City'></input>
+            </div>
+            <div class='form-group'>
+                <input class='form-control'type='text' name='newcountry' placeholder='Country'></input>
+            </div>
+            <div class='form-group'>
+                <input class='form-control'type='text' name='newimage' placeholder='Image url'></input>
+            </div>
+            <div class='form-group'>
+                <textarea rows="5" cols="50" class='form-control'type='text' name='desc' placeholder='Description...'></textarea>
+            </div>
+            <button class='btn btn-lg btn-success btn-block'type='submit'>Enter</button>
+        </div>
+    </form>
+    <br>
+    </div>
+<% include ../layout/footer %>

@@ -1,0 +1,50 @@
+
+.intro {
+    background-image: url('https://lifeandtimesofalifestylejunkie.files.wordpress.com/2015/07/img_2804.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: white;
+    height: 100%;
+}
+
+.intro-text{
+    position: absolute;
+    top: 27%;
+    margin-left:5%;
+    
+}
+
+.delete{
+    display: inline;
+    
+}
+
+
+
+.well{
+    max-width: 900px;
+}
+
+body{
+    background-color: #eee;
+}
+
+
+img{
+    width: 900px;
+}
+
+
+.imageClip{
+    width: auto;
+    height: 230px ;
+}
+
+.right{
+    float: right;
+}
+
+.description{
+    max-width: 900px;
+}

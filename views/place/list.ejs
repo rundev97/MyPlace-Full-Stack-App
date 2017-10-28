@@ -1,0 +1,35 @@
+<% include ../layout/header %>
+
+    <div class='container'>
+         <br>
+        <!--<a class='btn btn-lg btn-success' href='/placecamp/new'>Add a new place</a>
+        -->
+        
+        <div class='row text-center'>
+            <% placeList.forEach(function(place){ %>
+                <div class='col-xl-4 col-lg-4 col-md-4 col-sm-6'>
+                    <div class="well" >
+                        
+                        <a href="/placecamp/<%= place._id %>">
+                               <img  class="img-thumbnail imageClip"  alt="image" src='<%= place.image %>' />
+                        </a> 
+                        
+                        
+                         <div class="card-block">
+                            <h3 class="card-title"><%= place.name %></h3>
+                            <h5><%= place.country %></h5>
+                            <p class="card-text"><%= place.description.substring(0,120)+'...' %></p>
+                            <a href="/placecamp/<%= place._id %>" class="btn btn-primary">See more</a>
+                            <br><br>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+        <br><br>
+        <a class='btn btn-xs btn-success' href='/'>Back Home</a>
+    </div>
+    
+<% include ../layout/footer %>

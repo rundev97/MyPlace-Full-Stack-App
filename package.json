@@ -1,0 +1,31 @@
+{
+  "name": "placecamp",
+  "version": "1.0.0",
+  "description": "Beautiful place to visit around the world",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "place",
+    "visit",
+    "photography",
+    "beautiful",
+    "world"
+  ],
+  "author": "Rundev97",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "connect-flash": "^0.1.1",
+    "ejs": "^2.5.7",
+    "express": "^4.15.5",
+    "express-session": "^1.15.6",
+    "method-override": "^2.3.10",
+    "mongoose": "^4.11.14",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.2.1",
+    "request": "^2.83.0"
+  }
+}
