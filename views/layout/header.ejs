@@ -9,6 +9,9 @@
             <link rel='stylesheet' href='/css/style.css'> 
         </head>
         <body>
+          
+            <!--Navigation-->
+            
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/">Home</a>
@@ -23,6 +26,8 @@
                         </ul>
                         
                         <ul class="nav navbar-nav navbar-right">
+                          
+                          <!--Display Signup login logout-->
                           <% if (!currentUser){ %>
                             <li class="nav-item">
                               <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
@@ -31,6 +36,14 @@
                               <a class="nav-link" href="/register">Sign Up</a>
                             </li>
                           <% }else { %>
+                          
+                          <!--Display current user-->
+                         
+                          
+                          <!--Display logout-->
+                          <li class="nav-item">
+                            <a class="nav-link" >Hi!, Welcome <strong><%= currentUser.username %></strong></a>
+                          </li>
                           <li class="nav-item">
                             <a class="nav-link" href="/logout">Logout</a>
                           </li>
@@ -39,13 +52,20 @@
                         </ul>
                 </div>
             </nav>
-           
-            <% if (currentUser){ %>
-                <p style='float: right; margin-right: 1%'>Hi!, Welcome <span id='userName' ><strong><%= currentUser.username %></strong></span></p>
-            <% } %>
+            
+            
+             <!--Banneer-->
+            <div class='container-fluid banneer'>
+              <div class='banneerTitle'>
+                <h3>Top World Place</h3>
+                <h4>Discover the most beautiful place to visit all around the world</h4>
+              </div>
+            </div><br>
+            
+            
+            <!--flash message-->
             
             <div class='container'>
-              
                <% if(error.length > 0){ %>
                   <div class="alert alert-danger" role="alert">
                       <%= error %>
@@ -56,11 +76,13 @@
                 <% if(success.length > 0){ %>
                   <div class="alert alert-success" role="alert">
                       <%= success %>
-                      
                   </div>
                 <% } %>
-                
             </div>
+            
+            
+           
+            
             
             
             

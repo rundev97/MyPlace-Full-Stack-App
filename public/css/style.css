@@ -38,7 +38,7 @@ img{
 
 .imageClip{
     width: auto;
-    height: 230px ;
+    height: 190px ;
 }
 
 .right{
@@ -47,4 +47,30 @@ img{
 
 .description{
     max-width: 900px;
+}
+
+.red{
+    background-color: red;
+    height: 450px;
+}
+
+.banneer{
+    background-image: url(4.jpg);
+    height: 480px;
+    background-size: cover;
+}
+
+.banneerTitle{
+    text-align: center;
+    padding-top: 20vh;
+}
+
+.banneerTitle h3{
+    color: white;
+    font-size: 3.5em;
+}
+
+.banneerTitle h4{
+    color: #eee;
+    font-size: 1.5em;
 }
