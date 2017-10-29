@@ -77,8 +77,18 @@ img{
 
 .logo{
     width: 180px;
-    background-image: url('Logo-myPlace.png');
+    background-image: url('Logo-myPlace6.png');
     background-size: cover;
     background-position: center;
+    
+}
+
+.navbar{
+    margin-bottom: 0px;
+}
+
+i{
+    padding-right: 8px;
+    
     
 }
