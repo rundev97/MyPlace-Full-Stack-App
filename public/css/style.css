@@ -27,7 +27,7 @@
 }
 
 body{
-    background-color: #eee;
+    background-color: #ddd;
 }
 
 
@@ -38,7 +38,7 @@ img{
 
 .imageClip{
     width: auto;
-    height: 190px ;
+    height: 220px ;
 }
 
 .right{
@@ -73,4 +73,12 @@ img{
 .banneerTitle h4{
     color: #eee;
     font-size: 1.5em;
+}
+
+.logo{
+    width: 180px;
+    background-image: url('Logo-myPlace.png');
+    background-size: cover;
+    background-position: center;
+    
 }
