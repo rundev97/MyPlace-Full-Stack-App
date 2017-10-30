@@ -77,7 +77,7 @@ img{
 
 .logo{
     width: 180px;
-    background-image: url('Logo-myPlace6.png');
+    background-image: url('Logo-myPlaceFinal.png');
     background-size: cover;
     background-position: center;
     
@@ -90,5 +90,11 @@ img{
 i{
     padding-right: 8px;
     
+    
+}
+
+h3 i{
+    padding-right: 15px;
+    padding-bottom:15px;
     
 }
