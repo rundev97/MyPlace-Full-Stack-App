@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Place = require('../models/placecamp');
 var middleware = require('../middleware');
+var geocoder = require('geocoder');
 
 // Place 
 router.get('/', function(req, res){
@@ -35,25 +36,38 @@ router.post('/', middleware.isLoggedIn,  function(req, res){
         id: req.user._id,
         username: req.user.username
     };
-    var newplace = {
-        name: newname,
-        country: newcountry,
-        city: newcity,
-        image: newimage,
-        description: description,
-        author: author
-    };
-  
-    // insert a new place in the databsee 
-    Place.create(newplace, function(err, placecreated){
-       if (err){
-           req.flash('error', 'Sorry Didnt found this place in the database');
-           res.redirect('back');
-       } else {
-           req.flash('success', 'New place successfully created ');
-           res.redirect('/placecamp');
-       }
-   });
+    
+    geocoder.geocode(req.body.location, function (err, data) {
+        if(err){
+            console.log(err);
+        } else {
+            var lat = data.results[0].geometry.location.lat;
+            var lng = data.results[0].geometry.location.lng;
+            var location = data.results[0].formatted_address;
+            var newplace = {
+                name: newname,
+                country: newcountry,
+                city: newcity,
+                image: newimage,
+                description: description,
+                author: author,
+                location: location, 
+                lat: lat, 
+                lng: lng
+            };
+            
+            // insert a new place in the databsee 
+            Place.create(newplace, function(err, placecreated){
+               if (err){
+                   req.flash('error', 'Sorry Didnt found this place in the database');
+                   res.redirect('back');
+               } else {
+                   req.flash('success', 'New place successfully created ');
+                   res.redirect('/placecamp');
+               }
+            });
+        }
+    });
 });
 
 
