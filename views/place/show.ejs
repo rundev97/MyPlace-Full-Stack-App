@@ -4,6 +4,7 @@
         <li>menu 1</li>
         <li>menu 2</li>
         <li>menu 3</li>
+        <div id="map"></div>
     </div>
 
     <div class='container col-lg-9'>
@@ -71,6 +72,36 @@
             
         </div>    
     </div>
+    
+    <!--Google Map Integration-->
+    <script>
+      function initMap() {
+        var lat = <%= place.lat %>;
+        var lng = <%= place.lng %>;
+        var center = {lat: lat, lng: lng };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: center,
+            scrollwheel: false
+        });
+        var contentString = `
+          <strong><%= place.name %><br />
+          <%= place.location %></strong>
+          <p><%= place.description %></p>
+        `
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        var marker = new google.maps.Marker({
+            position: center,
+            map: map
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnjZpHZ5SSyQH_l6IADozl-flU-VhtawU&callback=initMap"></script>
     
 <% include ../layout/footer %>
 
