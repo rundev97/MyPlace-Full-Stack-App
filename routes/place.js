@@ -105,13 +105,26 @@ router.get('/:id/edit', middleware.isTheAuthor, function(req, res){
 
 // Edit Place Logic
 router.put('/:id', middleware.isTheAuthor, function(req, res){
-    Place.findByIdAndUpdate(req.params.id, req.body.place, function(err, updatedPlace){
+    geocoder.geocode(req.body.place.location, function (err, data) {
         if(err){
-            req.flash('error', 'Sorry Didnt found this place in the database');
-            res.redirect('/placecamp/'+  req.params.id );
+            console.log(err);
         } else {
-           req.flash('success', 'Place successfully edited');
-           res.redirect('/placecamp/'+  req.params.id );
+            var lat = data.results[0].geometry.location.lat;
+            var lng = data.results[0].geometry.location.lng;
+            var location = data.results[0].formatted_address;
+            req.body.place.lat = lat;
+            req.body.place.lng = lng;
+            req.body.place.location = location;
+            // find the id and update with the data object updated 
+            Place.findByIdAndUpdate(req.params.id, req.body.place, function(err, updatedPlace){
+                if(err){
+                    req.flash('error', 'Sorry Didnt found this place in the database');
+                    res.redirect('/placecamp/'+  req.params.id );
+                } else {
+                   req.flash('success', 'Place successfully edited');
+                   res.redirect('/placecamp/'+  req.params.id );
+                }
+            });
         }
     });
 });
@@ -130,31 +143,6 @@ router.delete('/:id', middleware.isTheAuthor, function(req, res){
     
 });
 
-
-// Middleware
-
-
-/*function isTheAuthor(req, res, next){
-    if(req.isAuthenticated()){
-        Place.findById(req.params.id, function(err, place){
-            if(err){
-                console.log('Didnt found the place in the database');
-                res.redirect('back');
-            } else {
-                if( place.author.id.equals(req.user._id)){
-                    console.log('You are the owner you ll be redirect to edit page');
-                    next();
-                } else {
-                    res.redirect('back');
-                    console.log('you are login but Only the Owner can edit this post');
-                }
-            }
-            });
-    } else {
-        res.redirect('back');
-        console.log('you need to be login to continnue');
-    }
-}*/
 
 
 
