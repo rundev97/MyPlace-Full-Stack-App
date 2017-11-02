@@ -2,7 +2,10 @@
 <div class='container'>
     
     <div class='row'>
-        <div class='container col-lg-8'>
+        <div class='col-lg-8'>
+            
+            <!-- Main Content--> 
+            
             <h1><%= place.name %></h1>
             <h3><%= place.city %> - <%= place.country %></h3>
     
@@ -10,6 +13,8 @@
             <br>
             <div class='description'>
                 <em>Subimted by: </em><strong><%= place.author.username %></strong><br><br>
+                
+                <!--Display Edit and Delete if Login and Author-->
                 
                 <% if(currentUser && place.author.id.equals(currentUser._id)){ %>
                     
@@ -26,8 +31,10 @@
                
                 <p><%= place.description %></p><br>
             </div>
-                         
-            <div class="well ">
+             
+            <!-- Comment Panel--> 
+            
+            <div class="well">
                 <div class='right'>
                     <a class='btn btn-success' href='/placecamp/<%= place._id %>/comments/new'>
                         Add New Comment
@@ -37,40 +44,41 @@
                 <h3 class="header"><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></i>Review This Place</h3><hr>
                 
                 <% place.comment.forEach(function(comment){ %>
-                        
-                            <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
-                                <div class='right'>
-                                 <form class='delete' action='/placecamp/<%= place._id%>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
-                                    <button class='btn btn-xs btn-danger'>Delete</button>
-                                </form>
-                                
-                                <a href='/placecamp/<%= place._id %>/comments/<%= comment._id %>/edit'>
-                                    <button class='btn btn-xs btn-warning'> Edit</button>
-                                </a>
-                                </div>
-                               
-                                    
-                                    
-                            <%  } %>
-                                
-                            
-                                <p class="card-title"><i class="fa fa-user " aria-hidden="true"></i><strong><%= comment.author.username %></strong>  -  <%= comment.content %></p>
-                            
-                            
-                            <hr>
-                            
-                            
-                                
-                        
-                        
-                <% }) %>
                 
-            </div>    
+                    <!--Display Edit and Delete Comment if Login and Author-->
+                
+                    <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                        <div class='right'>
+                            <form class='delete' action='/placecamp/<%= place._id%>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
+                                <button class='btn btn-xs btn-danger'>Delete</button>
+                            </form>
+                            
+                            <a href='/placecamp/<%= place._id %>/comments/<%= comment._id %>/edit'>
+                                <button class='btn btn-xs btn-warning'> Edit</button>
+                            </a>
+                        </div>
+                        
+                    <% } %>
+
+                    <p class="card-title"><i class="fa fa-user " aria-hidden="true"></i><strong><%= comment.author.username %></strong>  -  <%= comment.content %></p>
+                    <hr>
+
+                <% }) %>
+            </div>
+            
         </div>
         
-        <div class='container col-lg-4'>
+        <!-- Right Column Content--> 
+        
+        <div class='col-lg-4 showPage'>
+            
+            <!--Map panel-->
+            
             <div id="map"></div>
             <br>
+            
+            <!--More place panel-->
+            
             <div class='panel panel-default'>
                 <div class='panel-heading'>
                    <h4>More Place to See</h4> 
@@ -86,6 +94,8 @@
                 </div>
             </div>
             
+            <!--More Photo panel-->
+            
             <div class='panel panel-default'>
                 <div class='panel-heading'>
                    <h4>More Photos</h4> 
@@ -100,20 +110,22 @@
                 </div>
             </div>
             
+            <!--Search panel-->
+            
             <div class='panel panel-default'>
                 <div class='panel-heading'>
                    <h4>Search a Place</h4> 
                 </div>
                 <div class='panel-body'>
-                    <input type='text'></input>
-                    <button class='btn btn-sm btn-primary' type='submit'>Search</button>
-                    
+                    <input type='text' placeholder='Enter a place...'></input>
+                    <button class='btn btn-sm btn-primary' >Search</button>
                 </div>
             </div>
             
         </div>
     </div>
 </div>
+
     <!--Google Map Integration-->
     <script>
       function initMap() {

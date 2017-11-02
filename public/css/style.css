@@ -27,7 +27,7 @@
 }
 
 body{
-    background-color: #ddd;
+    background-color: #eee;
 }
 
 
@@ -104,8 +104,8 @@ h3 i{
     width: 100%;
 }
 
-.col-lg-4{
-    padding-top: 9.8%;
+.showPage{
+    padding-top: 115px;
     
 }
 
