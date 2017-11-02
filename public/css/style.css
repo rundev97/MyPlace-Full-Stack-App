@@ -55,7 +55,7 @@ img{
 }
 
 .banneer{
-    background-image: url(4.jpg);
+    background-image: url(/img/4.jpg);
     height: 480px;
     background-size: cover;
 }
@@ -77,7 +77,7 @@ img{
 
 .logo{
     width: 180px;
-    background-image: url('Logo-myPlaceFinal.png');
+    background-image: url('../img/Logo-myPlaceFinal.png');
     background-size: cover;
     background-position: center;
     
