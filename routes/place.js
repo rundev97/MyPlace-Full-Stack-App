@@ -12,7 +12,6 @@ router.get('/', function(req, res){
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
         
         Place.find({name: regex}, function(err, placeCampList){
-            console.log(placeCampList);
             if (err){
                 console.log(' an arror occur while finding the data in the database');
             } else if (placeCampList.length === 0){

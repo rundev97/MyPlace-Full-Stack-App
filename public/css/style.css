@@ -75,8 +75,14 @@ img{
     font-size: 1.5em;
 }
 
-.banneer input{
-    width: 25%;
+.banneer .form-control{
+    width: 20%;
+    margin: auto;
+    display: inline;
+}
+
+.search{
+    margin-left: 10px;
 }
 
 .logo{
