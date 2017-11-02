@@ -108,3 +108,15 @@ h3 i{
     padding-top: 9.8%;
     
 }
+
+.miniPic img {
+    width: 90px;
+    height: 90px;
+    margin: 0 0 12px 12px;
+   
+}
+
+input {
+    width: 70%;
+    margin-right: 10px;
+}
