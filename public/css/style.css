@@ -120,3 +120,30 @@ input {
     width: 70%;
     margin-right: 10px;
 }
+
+.footer{
+    background-color: #074689;
+    height: 250px;
+    color: silver;
+}
+
+.footer h4{
+    color: white;
+}
+
+.line {
+    border-right: 1px solid #1c5795;
+}
+
+.space{
+    margin-top: 30px;
+}
+
+.copyright{
+    background-color: #01254b;
+    height: 50px;
+    color: #777;
+    text-align: center;
+    padding-top: 5px;
+    font-size: 0.8em;
+}
