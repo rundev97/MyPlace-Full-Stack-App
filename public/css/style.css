@@ -90,6 +90,8 @@ img{
     background-image: url('../img/Logo-myPlaceFinal.png');
     background-size: cover;
     background-position: center;
+    position: relative;
+    z-index: 1;
     
 }
 
@@ -133,7 +135,6 @@ input {
 
 .footer{
     background-color: #074689;
-    height: 250px;
     color: silver;
 }
 
@@ -146,20 +147,19 @@ input {
     
 }
 
-.line {
+/*.line {
     border-right: 1px solid #1c5795;
-}
+}*/
 
 .space{
-    margin-top: 30px;
+    margin: 20px 8px;
 }
 
 .copyright{
     background-color: #01254b;
-    height: 50px;
     color: #777;
     text-align: center;
-    padding-top: 8px;
+    padding: 8px 8px;
     font-size: 0.8em;
 }
 
