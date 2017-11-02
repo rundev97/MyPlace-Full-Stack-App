@@ -131,6 +131,11 @@ input {
     color: white;
 }
 
+.footer a{
+    color: silver;
+    
+}
+
 .line {
     border-right: 1px solid #1c5795;
 }
@@ -147,3 +152,5 @@ input {
     padding-top: 5px;
     font-size: 0.8em;
 }
+
+
