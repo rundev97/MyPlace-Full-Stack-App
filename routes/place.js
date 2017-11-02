@@ -6,14 +6,32 @@ var geocoder = require('geocoder');
 
 // Place 
 router.get('/', function(req, res){
-    // find place in the databsee 
-    Place.find({}, function(err, placeCampList){
-        if (err){
-            console.log(' an arror occur while finding the data in the database');
-        } else {
-            res.render('./place/list', {placeList: placeCampList});
-        }
-    });
+    // find place in the databse with the search query
+    if(req.query.search){
+        // escape all dangerous caracther for security and stock the query string in a variable
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        
+        Place.find({name: regex}, function(err, placeCampList){
+            console.log(placeCampList);
+            if (err){
+                console.log(' an arror occur while finding the data in the database');
+            } else if (placeCampList.length === 0){
+                req.flash('error', 'Sorry We Didnt found this place in the database');
+                res.redirect('back');
+            } else {
+                res.render('./place/list', {placeList: placeCampList});
+            }
+        });
+    // if no query search find all the place  
+    } else {
+        Place.find({}, function(err, placeCampList){
+            if (err){
+                console.log(' an arror occur while finding the data in the database');
+            } else {
+                res.render('./place/list', {placeList: placeCampList});
+            }
+        });
+    }
 });
 
 
@@ -144,7 +162,9 @@ router.delete('/:id', middleware.isTheAuthor, function(req, res){
 });
 
 
-
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 
 module.exports = router;
