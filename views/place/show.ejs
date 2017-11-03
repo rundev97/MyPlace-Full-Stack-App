@@ -12,7 +12,7 @@
             <img class='img-rounded img-responsive' src='<%= place.image %>' />
             <br>
             <div class='description'>
-                <em>Subimted by: </em><strong><%= place.author.username %></strong><br><br>
+                <em>Subimted by: </em><strong><%= place.author.username  %></strong><%= ',  ' + moment(place.created).fromNow() %><br><br>
                 
                 <!--Display Edit and Delete if Login and Author-->
                 
@@ -60,7 +60,7 @@
                         
                     <% } %>
 
-                    <p class="card-title"><i class="fa fa-user " aria-hidden="true"></i><strong><%= comment.author.username %></strong>  -  <%= comment.content %></p>
+                    <p class="card-title"><i class="fa fa-user " aria-hidden="true"></i><strong><%= comment.author.username %></strong>  -  <%= comment.content %><span class="pull-right"><%= moment(comment.created).fromNow() %></span></p>
                     <hr>
 
                 <% }) %>

@@ -29,7 +29,7 @@ app.use(methodOverride('_method'));
 app.use(flash());
 
 
-
+app.locals.moment = require('moment');
 
 //====== passport Security config =========
 app.use(expressSession({
@@ -46,6 +46,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //========================================
+
+
 
 // Middleware making the currentUser variable available in all the app
 // Instead of passing the variable from the route to the view with {currentUser: req.user}
