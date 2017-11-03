@@ -133,7 +133,7 @@ router.put('/:id', middleware.isTheAuthor, function(req, res){
             req.body.place.lng = lng;
             req.body.place.location = location;
             // find the id and update with the data object updated 
-            Place.findByIdAndUpdate(req.params.id, req.body.place, function(err, updatedPlace){
+            Place.findByIdAndUpdate(req.params.id, {$set: req.body.place}, function(err, updatedPlace){
                 if(err){
                     req.flash('error', 'Sorry Didnt found this place in the database');
                     res.redirect('/placecamp/'+  req.params.id );

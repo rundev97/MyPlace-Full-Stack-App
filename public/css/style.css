@@ -102,7 +102,7 @@ img{
 i{
     padding-right: 8px;
     
-    
+  
 }
 
 h3 i{
@@ -165,4 +165,8 @@ input {
 
 .pull-right{
     margin-right: 9px;
+}
+
+.blue{
+    color: #337ab7;
 }
