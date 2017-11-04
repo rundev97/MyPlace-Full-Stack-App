@@ -22,9 +22,9 @@
 
 
 
-.well{
+/*.well{
     max-width: 900px;
-}
+}*/
 
 body{
     background-color: #eee;
@@ -170,4 +170,25 @@ input {
 
 .blue{
     color: #337ab7;
+}
+
+.list img{
+    float: left;
+    margin-right: 25px;
+    max-width: 325px;
+}
+
+#list{
+    margin: 3px;
+    float: right;
+    
+}
+
+#grid{
+    margin:3px;
+    float: right;
+}
+
+.list .well{
+    min-height: 260px;
 }

@@ -1,13 +1,14 @@
 <% include ../layout/header %>
 
     <div class='container'>
-         <br>
-         <button id='list'>List</button>
-         <button id='grid'>Grid</button>
+         
+        <button id='list'>List</button>
+        <button id='grid'>Grid</button>
+        <br><br>
         
-        <div class='row text-center'>
+        <div class='row'>
             <% placeList.forEach(function(place){ %>
-                <div class='col-xl-4 col-lg-4 col-md-4 col-sm-6'>
+                <div class='col-xl-4 col-lg-4 col-md-4 col-sm-6 text-center'>
                     <div class="well" >
                         
                         <a href="/placecamp/<%= place._id %>">
