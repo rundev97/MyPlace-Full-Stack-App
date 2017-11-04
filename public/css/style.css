@@ -147,9 +147,6 @@ input {
     
 }
 
-/*.line {
-    border-right: 1px solid #1c5795;
-}*/
 
 .space{
     margin: 20px 8px;
@@ -191,4 +188,15 @@ input {
 
 .list .well{
     min-height: 260px;
+}
+
+button:focus{
+    outline: none;
+    border:none;
+ 
+}
+
+button {
+    border: none;
+    color: #666;
 }
