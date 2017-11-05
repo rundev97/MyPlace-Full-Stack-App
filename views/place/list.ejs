@@ -36,22 +36,37 @@
             <!-- Pagination -->
             <%
                 var totalItems = placeList.length;
-                console.log(totalItems);
-                var itemsByPage = 9;
+                console.log('TotelItems ' + totalItems);
+                var itemsByPage = 6;
                 var nbrOfPage = Math.ceil(totalItems / itemsByPage);
-                console.log(nbrOfPage);
+                console.log('nbrOfPage ' + nbrOfPage);
+                var actualPage = 3;
+                if(actualPage == undefined  || actualPage < 1){
+                    actualPage = 1;
+                }
+                console.log('actualPage ' + actualPage);
+                
+                
             %>
             
             <% if(nbrOfPage > 1){ %>
             <div id='pagination'>
                  <div class='row text-center'>
                      <ul class='page'>
-                        <li class='pageNr'><a href='#'>Previews</a></li>
-                            <% for(i = 1; i < nbrOfPage + 1; i++){ %>
-                                 <li class='pageNr'><a href='#'><%= i %></a></li>
-                            <% } %>
-                        <li class='pageNr'><a href='#'>Next</a></li>
+                        <% if ( actualPage > 1 ){ %>
+                            <!--Display Preview button-->
+                            <li class='pageNr'><a href='/placecamp/page/<%= actualPage - 1 %>'>Previews</a></li>
+                        <% } %>
                         
+                       <!-- Dispay nbr of Page-->
+                        <% for(i = 1; i < nbrOfPage + 1; i++){ %>
+                             <li class='pageNr'><a href='/placecamp/page/<%= i %>'><%= i %></a></li>
+                        <% } %>
+                        
+                        <!--Display Next button-->
+                        <% if ( actualPage < nbrOfPage ){ %>
+                        <li class='pageNr'><a href='/placecamp/page/<%= actualPage + 1 %>'>Next</a></li>
+                        <% } %>
                      </ul>
                      
                  </div>
