@@ -3,14 +3,19 @@ var router = express.Router();
 var Place = require('../models/placecamp');
 var middleware = require('../middleware');
 var geocoder = require('geocoder');
+var actualPage = 1;
+var itemsByPage = 6;
 
 // Place 
 router.get('/', function(req, res){
+    
     // find place in the databse with the search query
     if(req.query.search){
+        
         // escape all dangerous caracther for security and stock the query string in a variable
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
         
+        // found in the database the req from the search form
         Place.find({name: regex}, function(err, placeCampList){
             if (err){
                 console.log(' an arror occur while finding the data in the database');
@@ -18,16 +23,29 @@ router.get('/', function(req, res){
                 req.flash('error', 'Sorry We Didnt found this place in the database');
                 res.redirect('back');
             } else {
-                res.render('./place/list', {placeList: placeCampList});
+                var totalItems = placeCampList.length;
+                var nbrOfPage = Math.ceil(totalItems / itemsByPage);
+                
+                res.render('./place/list', {
+                    placeList: placeCampList,
+                    actualPage: actualPage,
+                    nbrOfPage: nbrOfPage
+                });
             }
         });
-    // if no query search find all the place  
+        
+    // if no query in search form: find and display all the place  
     } else {
         Place.find({}, function(err, placeCampList){
             if (err){
                 console.log(' an arror occur while finding the data in the database');
             } else {
-                res.render('./place/list', {placeList: placeCampList});
+                /*res.render('./place/list', {
+                    placeList: placeCampList,
+                    actualPage: actualPage
+                    
+                });*/
+                res.redirect('/placecamp/page/0');
             }
         });
     }
@@ -35,10 +53,12 @@ router.get('/', function(req, res){
 
 
 
+
 // New Place Form
 router.get('/new', middleware.isLoggedIn, function(req, res){
     res.render('./place/new');
 });
+
 
 
 
@@ -120,6 +140,8 @@ router.get('/:id/edit', middleware.isTheAuthor, function(req, res){
 });
 
 
+
+
 // Edit Place Logic
 router.put('/:id', middleware.isTheAuthor, function(req, res){
     geocoder.geocode(req.body.place.location, function (err, data) {
@@ -147,6 +169,7 @@ router.put('/:id', middleware.isTheAuthor, function(req, res){
 });
 
 
+
 // Remove Place
 router.delete('/:id', middleware.isTheAuthor, function(req, res){
     Place.findByIdAndRemove(req.params.id, function(err){
@@ -159,6 +182,55 @@ router.delete('/:id', middleware.isTheAuthor, function(req, res){
     });
     
 });
+
+
+// Pagination Route
+
+
+router.get('/page/:page_id', function(req, res){
+    Place.find({}, function(err, placeCampList){
+            if (err){
+                console.log(' an arror occur while finding the data in the database');
+            } else {
+                actualPage = Number(req.params.page_id);
+                
+                /*checking the value of page_id for secure*/
+                if(actualPage == undefined || actualPage < 0 || actualPage > placeCampList.length || isNaN(actualPage)){
+                    actualPage = 0;
+                }
+                
+                /*Split the placeCamList in page of n items*/
+                var totalItems = placeCampList.length;
+                console.log('TotelItems ' + totalItems);
+                console.log('ItemByPage ' + itemsByPage);
+                var nbrOfPage = Math.ceil(totalItems / itemsByPage);
+                console.log('nbrOfPage ' + nbrOfPage);
+                console.log('actualPage ' + actualPage);
+                
+                var tableOfPage = [];
+                
+                while(placeCampList.length > 0){
+                    tableOfPage.push(placeCampList.splice(0,itemsByPage));
+                }
+ 
+                
+                
+                //Render the element on the page actualPage
+                var placePage = tableOfPage[actualPage];
+
+                
+                /*Render the page by passing the value*/
+                res.render('./place/list', {
+                    placeList: placePage,
+                    actualPage: actualPage,
+                    totalItems: totalItems,
+                    itemsByPage: itemsByPage,
+                    nbrOfPage: nbrOfPage
+                });
+            }
+        });
+});
+
 
 
 function escapeRegex(text) {
