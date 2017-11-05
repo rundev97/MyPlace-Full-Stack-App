@@ -1,11 +1,14 @@
 <% include ../layout/header %>
 
+
     <div class='container'>
          
         <button id='list'><i class="fa fa-th-list" aria-hidden="true"></i>List</button>
         <button id='grid'><i class="fa fa-th-large" aria-hidden="true"></i>Grid</button>
         <br><br>
         
+        
+        <!-- List of Place-->
         <div class='row'>
             <% placeList.forEach(function(place){ %>
                 <div class='col-xl-4 col-lg-4 col-md-4 col-sm-6 text-center'>
@@ -14,8 +17,7 @@
                         <a href="/placecamp/<%= place._id %>">
                                <img  class="img-thumbnail imageClip "  alt="image" src='<%= place.image %>' />
                         </a> 
-                        
-                        
+
                          <div class="card-block">
                             <h3 class="card-title"><%= place.name %></h3>
                             <h5><%= place.country %></h5>
@@ -28,7 +30,35 @@
                 </div>
             <% }) %>
         </div>
-        <br><br>
+        <br>
+        
+        
+            <!-- Pagination -->
+            <%
+                var totalItems = placeList.length;
+                console.log(totalItems);
+                var itemsByPage = 9;
+                var nbrOfPage = Math.ceil(totalItems / itemsByPage);
+                console.log(nbrOfPage);
+            %>
+            
+            <% if(nbrOfPage > 1){ %>
+            <div id='pagination'>
+                 <div class='row text-center'>
+                     <ul class='page'>
+                        <li class='pageNr'><a href='#'>Previews</a></li>
+                            <% for(i = 1; i < nbrOfPage + 1; i++){ %>
+                                 <li class='pageNr'><a href='#'><%= i %></a></li>
+                            <% } %>
+                        <li class='pageNr'><a href='#'>Next</a></li>
+                        
+                     </ul>
+                     
+                 </div>
+            </div>
+            <% } %>
+        
+        <br>
         <a class='btn btn-xs btn-success' href='/'>Back Home</a>
     </div>
     
