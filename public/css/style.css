@@ -41,6 +41,11 @@ img{
     height: 220px ;
 }
 
+.imageClipList{
+    width: auto;
+    height: 150px ;
+}
+
 .right{
     float: right;
 }
@@ -171,9 +176,13 @@ input {
 
 .list img{
     float: left;
-    margin-right: 25px;
-    max-width: 325px;
+    margin-right: 30px;
+    max-width: 200px;
+    height: 150px;
+
 }
+
+
 
 #list{
     margin: 3px;
@@ -187,7 +196,7 @@ input {
 }
 
 .list .well{
-    min-height: 260px;
+    min-height: 200px;
 }
 
 button:focus{

@@ -4,10 +4,17 @@ var Place = require('../models/placecamp');
 var Comment = require('../models/comment');
 var middleware = require('../middleware');
 
+
+
 // New Comment Form
 router.get('/new', middleware.isLoggedIn, function(req, res){
     res.render('./comment/new', {id: req.params.id});
 });
+
+
+
+
+// NEED TO BE SANITIZED //
 
 // Post new comment 
 router.post('/', middleware.isLoggedIn, function(req, res){
@@ -43,6 +50,9 @@ router.post('/', middleware.isLoggedIn, function(req, res){
 
 
 
+
+
+
 // Edit comment form
 router.get('/:commentid/edit', middleware.isTheCommentAuthor, function(req, res){
     Comment.findById(req.params.commentid, function(err, comment){
@@ -54,6 +64,12 @@ router.get('/:commentid/edit', middleware.isTheCommentAuthor, function(req, res)
         }
     });
 });
+
+
+
+
+
+// NEED TO BE SANITIZED //
 
 //Edit comment Logic
 router.put('/:commentid', middleware.isTheCommentAuthor, function(req, res){
@@ -68,6 +84,9 @@ router.put('/:commentid', middleware.isTheCommentAuthor, function(req, res){
         
     });
 });
+
+
+
 
 
 //Delete comment

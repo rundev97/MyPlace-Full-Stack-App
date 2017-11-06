@@ -6,6 +6,9 @@ var geocoder = require('geocoder');
 var actualPage = 1;
 var itemsByPage = 6;
 
+
+
+
 // Place 
 router.get('/', function(req, res){
     
@@ -40,16 +43,17 @@ router.get('/', function(req, res){
             if (err || !placeCampList){
                 console.log(' an arror occur while finding the data in the database');
             } else {
-                /*res.render('./place/list', {
+                //Change After Implement Pagination on placecamp!
+                   /* res.render('./place/list', {
                     placeList: placeCampList,
                     actualPage: actualPage
-                    
                 });*/
                 res.redirect('/placecamp/page/0');
             }
         });
     }
 });
+
 
 
 
@@ -61,6 +65,10 @@ router.get('/new', middleware.isLoggedIn, function(req, res){
 
 
 
+
+
+
+// NEED TO BE SANITIZED //
 
 // New Place Logic
 router.post('/', middleware.isLoggedIn,  function(req, res){
@@ -110,6 +118,8 @@ router.post('/', middleware.isLoggedIn,  function(req, res){
 
 
 
+
+
 // Show Place
 router.get('/:id', function(req, res){
     // populate the id founded with comment and then execute the callback
@@ -122,6 +132,8 @@ router.get('/:id', function(req, res){
         }
     });
 });
+
+
 
 
 
@@ -140,6 +152,10 @@ router.get('/:id/edit', middleware.isTheAuthor, function(req, res){
 });
 
 
+
+
+
+// NEED TO BE SANITIZED //
 
 
 // Edit Place Logic
@@ -170,6 +186,8 @@ router.put('/:id', middleware.isTheAuthor, function(req, res){
 
 
 
+
+
 // Remove Place
 router.delete('/:id', middleware.isTheAuthor, function(req, res){
     Place.findByIdAndRemove(req.params.id, function(err){
@@ -184,9 +202,9 @@ router.delete('/:id', middleware.isTheAuthor, function(req, res){
 });
 
 
+
+
 // Pagination Route
-
-
 router.get('/page/:page_id', function(req, res){
     Place.find({}, function(err, placeCampList){
             if (err || !placeCampList){
@@ -230,6 +248,7 @@ router.get('/page/:page_id', function(req, res){
             }
         });
 });
+
 
 
 
