@@ -58,7 +58,7 @@ router.get('/', function(req, res){
 
 
 
-// New Place Form
+// add new Place Form
 router.get('/new', middleware.isLoggedIn, function(req, res){
     res.render('./place/new');
 });
@@ -68,20 +68,18 @@ router.get('/new', middleware.isLoggedIn, function(req, res){
 
 
 
-// NEED TO BE SANITIZED //
-
-// New Place Logic
+// add new Place Logic
 router.post('/', middleware.isLoggedIn,  function(req, res){
-    var newname = req.body.newname;
-    var newcity = req.body.newcity;
-    var newimage = req.body.newimage;
-    var newcountry = req.body.newcountry;
-    var description = req.body.desc;
+    var newname = req.sanitize(req.body.newname);
+    var newcity = req.sanitize(req.body.newcity);
+    var newimage = req.sanitize(req.body.newimage);
+    var newcountry = req.sanitize(req.body.newcountry);
+    var description = req.sanitize(req.body.desc);
     var author = {
         id: req.user._id,
         username: req.user.username
     };
-    
+    req.body.location = req.sanitize(req.body.location);
     geocoder.geocode(req.body.location, function (err, data) {
         if(err || !data){
             console.log(err);
@@ -160,19 +158,28 @@ router.get('/:id/edit', middleware.isTheAuthor, function(req, res){
 
 // Edit Place Logic
 router.put('/:id', middleware.isTheAuthor, function(req, res){
+    
+    req.body.place.name = req.sanitize(req.body.place.name);
+    req.body.place.city = req.sanitize(req.body.place.city);
+    req.body.place.country = req.sanitize(req.body.place.country);
+    req.body.place.image = req.sanitize(req.body.place.image);
+    req.body.place.location = req.sanitize(req.body.place.location);
+    req.body.place.description = req.sanitize(req.body.place.description);
+    
     geocoder.geocode(req.body.place.location, function (err, data) {
         if(err || !data){
-            console.log(err);
+            req.flash('error', 'Sorry Didnt found this place in the database');
+            res.redirect('/placecamp/'+  req.params.id );
         } else {
             var lat = data.results[0].geometry.location.lat;
             var lng = data.results[0].geometry.location.lng;
-            var location = data.results[0].formatted_address;
+            var loc = data.results[0].formatted_address;
             req.body.place.lat = lat;
             req.body.place.lng = lng;
-            req.body.place.location = location;
+            req.body.place.location = loc;
             // find the id and update with the data object updated 
             Place.findByIdAndUpdate(req.params.id, {$set: req.body.place}, function(err, updatedPlace){
-                if(err){
+                if(err || !updatedPlace){
                     req.flash('error', 'Sorry Didnt found this place in the database');
                     res.redirect('/placecamp/'+  req.params.id );
                 } else {
@@ -195,7 +202,7 @@ router.delete('/:id', middleware.isTheAuthor, function(req, res){
             console.log(err);
         } else {
             req.flash('success', 'Place successfully removed from the database');
-            res.redirect('/placecamp');
+            res.redirect('/placecamp/page/0');
         }
     });
     
