@@ -15,12 +15,14 @@ router.post('/', middleware.isLoggedIn, function(req, res){
     var comment = req.body.comment;
     
     Place.findById(id, function(err, place){
-        if (err){
-            console.log(err);
+        if (err || !place){
+            req.flash('error', 'Sorry Didnt found this place in the database');
+            res.redirect('/placecamp/page/0');
         } else {
             Comment.create(comment, function(err, comment){
-                if(err){
-                    console.log(err);
+                if(err || !comment){
+                    req.flash('error', 'Sorry Didnt found this comment in the database');
+                    res.redirect('/placecamp/page/0');
                 } else {
                     // add comment user based on the commentSchema and save it 
                     comment.author.id = req.user._id;
@@ -44,9 +46,9 @@ router.post('/', middleware.isLoggedIn, function(req, res){
 // Edit comment form
 router.get('/:commentid/edit', middleware.isTheCommentAuthor, function(req, res){
     Comment.findById(req.params.commentid, function(err, comment){
-        if(err){
+        if(err || !comment){
             req.flash('error', 'Sorry Didnt found this comment in the database');
-            res.redirect('back');
+            res.redirect('/placecamp/page/0');
         } else {
             res.render('./comment/edit', {id: req.params.id, comment: comment });
         }
@@ -55,11 +57,10 @@ router.get('/:commentid/edit', middleware.isTheCommentAuthor, function(req, res)
 
 //Edit comment Logic
 router.put('/:commentid', middleware.isTheCommentAuthor, function(req, res){
-    console.log(req.body.comment);
     Comment.findByIdAndUpdate(req.params.commentid, req.body.comment, function(err, comment){
-        if (err){
+        if (err || !comment){
             req.flash('error', 'Sorry Didnt found this comment in the database');
-            res.redirect('back');
+            res.redirect('/placecamp/page/0');
         } else {
             req.flash('success', 'Comment successfully edited');
             res.redirect('/placecamp/' + req.params.id);

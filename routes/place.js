@@ -17,7 +17,7 @@ router.get('/', function(req, res){
         
         // found in the database the req from the search form
         Place.find({name: regex}, function(err, placeCampList){
-            if (err){
+            if (err || !placeCampList){
                 console.log(' an arror occur while finding the data in the database');
             } else if (placeCampList.length === 0){
                 req.flash('error', 'Sorry We Didnt found this place in the database');
@@ -37,7 +37,7 @@ router.get('/', function(req, res){
     // if no query in search form: find and display all the place  
     } else {
         Place.find({}, function(err, placeCampList){
-            if (err){
+            if (err || !placeCampList){
                 console.log(' an arror occur while finding the data in the database');
             } else {
                 /*res.render('./place/list', {
@@ -75,7 +75,7 @@ router.post('/', middleware.isLoggedIn,  function(req, res){
     };
     
     geocoder.geocode(req.body.location, function (err, data) {
-        if(err){
+        if(err || !data){
             console.log(err);
         } else {
             var lat = data.results[0].geometry.location.lat;
@@ -95,9 +95,9 @@ router.post('/', middleware.isLoggedIn,  function(req, res){
             
             // insert a new place in the databsee 
             Place.create(newplace, function(err, placecreated){
-               if (err){
+               if (err || !placecreated){
                    req.flash('error', 'Sorry Didnt found this place in the database');
-                   res.redirect('back');
+                   res.redirect('/placecamp/page/0');
                } else {
                    req.flash('success', 'New place successfully created ');
                    res.redirect('/placecamp');
@@ -114,9 +114,9 @@ router.post('/', middleware.isLoggedIn,  function(req, res){
 router.get('/:id', function(req, res){
     // populate the id founded with comment and then execute the callback
     Place.findById(req.params.id).populate('comment').exec(function(err, placeReceive){
-        if (err){
-            req.flash('error', 'err.message');
-            res.redirect('back');
+        if (err || !placeReceive){
+            req.flash('error', 'Error: This place dont exist in the database');
+            res.redirect('/placecamp/page/0');
         } else {
             res.render('./place/show', {place: placeReceive });
         }
@@ -126,12 +126,12 @@ router.get('/:id', function(req, res){
 
 
 
-// Edit Place Form
+// Edit Form for Place
 router.get('/:id/edit', middleware.isTheAuthor, function(req, res){
     Place.findById(req.params.id, function(err, place){
-        if (err){
+        if (err || !place){
             req.flash('error', 'Sorry Didnt found this place in the database');
-            res.redirect('back');
+            res.redirect('/placecamp/page/0');
         } else {
             res.render('place/edit', {place: place});
         } 
@@ -145,7 +145,7 @@ router.get('/:id/edit', middleware.isTheAuthor, function(req, res){
 // Edit Place Logic
 router.put('/:id', middleware.isTheAuthor, function(req, res){
     geocoder.geocode(req.body.place.location, function (err, data) {
-        if(err){
+        if(err || !data){
             console.log(err);
         } else {
             var lat = data.results[0].geometry.location.lat;
@@ -189,7 +189,7 @@ router.delete('/:id', middleware.isTheAuthor, function(req, res){
 
 router.get('/page/:page_id', function(req, res){
     Place.find({}, function(err, placeCampList){
-            if (err){
+            if (err || !placeCampList){
                 console.log(' an arror occur while finding the data in the database');
             } else {
                 actualPage = Number(req.params.page_id);
