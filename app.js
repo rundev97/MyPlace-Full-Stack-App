@@ -11,7 +11,8 @@ var express          = require('express'),
     placeRoutes      = require('./routes/place'),
     methodOverride   = require('method-override'),
     flash            = require('connect-flash'),
-    userRoutes       = require('./routes/user'); 
+    userRoutes       = require('./routes/user'),
+    expressSanitizer = require('express-sanitizer');
 
 
 // call seed() methode to laod basic mokup data in our app  
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
 app.use(flash());
+app.use(expressSanitizer());
 
 
 app.locals.moment = require('moment');
