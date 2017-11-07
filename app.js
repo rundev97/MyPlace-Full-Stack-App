@@ -72,7 +72,7 @@ app.use(userRoutes);
 
 // Listen on Routes with environement variable
 app.listen(process.env.PORT, process.env.IP, function(){
-    console.log('PlaceCamp Node Server started on Port ' + process.env.PORT + 'and ip: ' + process.env.IP);
+    console.log('PlaceCamp Node Server started on Port: ' + process.env.PORT + ' and ip: ' + process.env.IP);
 });
 
 
