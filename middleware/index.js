@@ -3,6 +3,10 @@ var Comment = require('../models/comment');
 
 var middlewareObj={};
 
+
+
+
+// Check if the Use is the Author of the Post
 middlewareObj.isTheAuthor = function(req, res, next){
     Place.findById(req.params.id, function(err, place){
         if(err || !place){
@@ -22,6 +26,10 @@ middlewareObj.isTheAuthor = function(req, res, next){
 };
 
 
+
+
+
+// Check if the User is loged in
 middlewareObj.isLoggedIn = function(req, res, next){
     if(req.isAuthenticated()){
         return next();
@@ -31,6 +39,10 @@ middlewareObj.isLoggedIn = function(req, res, next){
 };
 
 
+
+
+
+// Check if the User is the Author of the comment
 middlewareObj.isTheCommentAuthor = function(req, res, next){
     Comment.findById(req.params.commentid, function(err, comment){
         if(err || !comment){
@@ -48,6 +60,8 @@ middlewareObj.isTheCommentAuthor = function(req, res, next){
         }
     });
 };
+
+
 
 
 

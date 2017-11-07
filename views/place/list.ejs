@@ -1,14 +1,15 @@
 <% include ../layout/header %>
 
-
+    <!--List Page Views-->
+    
     <div class='container'>
          
         <button id='list'><i class="fa fa-th-list" aria-hidden="true"></i>List</button>
         <button id='grid'><i class="fa fa-th-large" aria-hidden="true"></i>Grid</button>
         <br><br>
         
-        
         <!-- List of Place-->
+        
         <div class='row'>
             <% placeList.forEach(function(place){ %>
                 <div class='col-xl-4 col-lg-4 col-md-4 col-sm-6 text-center'>
@@ -33,32 +34,31 @@
         <br>
         
         
-            <!-- Pagination -->
-   
-            
-            <% if(nbrOfPage > 1){ %>
-            <div id='pagination'>
-                 <div class='row text-center'>
-                     <ul class='page'>
-                        <% if ( actualPage > 0 ){ %>
-                            <!--Display Preview button-->
-                            <li class='pageNr'><a href='/placecamp/page/<%= actualPage - 1 %>'>Previews</a></li>
-                        <% } %>
-                        
-                       <!-- Dispay nbr of Page-->
-                        <% for(i = 0; i < nbrOfPage; i++){ %>
-                             <li class='pageNr'><a href='/placecamp/page/<%= i %>'><%= i %></a></li>
-                        <% } %>
-                        
-                        <!--Display Next button-->
-                        <% if ( actualPage < nbrOfPage -1 ){ %>
-                        <li class='pageNr'><a href='/placecamp/page/<%= actualPage + 1 %>'>Next</a></li>
-                        <% } %>
-                     </ul>
-                     
-                 </div>
-            </div>
-            <% } %>
+        <!-- Pagination -->
+
+        <% if(nbrOfPage > 1){ %>
+        <div id='pagination'>
+             <div class='row text-center'>
+                 <ul class='page'>
+                    <% if ( actualPage > 0 ){ %>
+                        <!--Display Preview button-->
+                        <li class='pageNr'><a href='/placecamp/page/<%= actualPage - 1 %>'>Previews</a></li>
+                    <% } %>
+                    
+                   <!-- Dispay nbr of Page-->
+                    <% for(i = 0; i < nbrOfPage; i++){ %>
+                         <li class='pageNr'><a href='/placecamp/page/<%= i %>'><%= i %></a></li>
+                    <% } %>
+                    
+                    <!--Display Next button-->
+                    <% if ( actualPage < nbrOfPage -1 ){ %>
+                    <li class='pageNr'><a href='/placecamp/page/<%= actualPage + 1 %>'>Next</a></li>
+                    <% } %>
+                 </ul>
+                 
+             </div>
+        </div>
+        <% } %>
         
         <br>
         <a class='btn btn-xs btn-success' href='/'>Back Home</a>

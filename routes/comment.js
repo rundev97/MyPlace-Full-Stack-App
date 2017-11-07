@@ -14,8 +14,6 @@ router.get('/new', middleware.isLoggedIn, function(req, res){
 
 
 
-// NEED TO BE SANITIZED //
-
 // Post new comment 
 router.post('/', middleware.isLoggedIn, function(req, res){
     var id = req.params.id;
@@ -69,7 +67,6 @@ router.get('/:commentid/edit', middleware.isTheCommentAuthor, function(req, res)
 
 
 
-// NEED TO BE SANITIZED //
 
 //Edit comment Logic
 router.put('/:commentid', middleware.isTheCommentAuthor, function(req, res){

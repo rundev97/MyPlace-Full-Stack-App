@@ -1,15 +1,18 @@
 <% include ../layout/header %>
-<div class='container text-center'>
-    <h1>Edit comment</h1>
-    <br>
-    <form method='POST' action='/placecamp/<%= id %>/comments/<%= comment._id %>?_method=PUT'>
-        <div class='container' style='width: 35%'>
-            <div class='form-group'>
-                <input class='form-control' type='text' name='comment[content]' value='<%= comment.content %>'></input>
-            </div>
-            <button class='btn btn-lg btn-success btn-block' type='submit'>Enter</button>
-        </div>
-    </form>
 
-</div>
+    <!--Edit Comment Form-->
+    
+    <div class='container text-center'>
+        <h1>Edit comment</h1>
+        <br>
+        <form method='POST' action='/placecamp/<%= id %>/comments/<%= comment._id %>?_method=PUT'>
+            <div class='container' style='width: 35%'>
+                <div class='form-group'>
+                    <input class='form-control' type='text' name='comment[content]' value='<%= comment.content %>'></input>
+                </div>
+                <button class='btn btn-lg btn-success btn-block' type='submit'>Enter</button>
+            </div>
+        </form>
+    </div>
+    
 <% include ../layout/footer %>

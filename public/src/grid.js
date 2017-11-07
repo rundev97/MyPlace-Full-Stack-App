@@ -6,7 +6,7 @@ grid.style.color = 'white';
 list.style.background = '#ddd';
 list.style.color = '#666';
 
-
+// List button Logic
 list.addEventListener('click', function(){
     var items = document.querySelectorAll('.col-xl-4, .col-lg-4, .col-md-4, .col-sm-6 .text-center');
         for (var i = 0; i < items.length; i++) {
@@ -20,6 +20,8 @@ list.addEventListener('click', function(){
         }
 });
 
+
+// Grid Button logic
 grid.addEventListener('click', function(){
     var items = document.querySelectorAll('.col-md-12');
         for (var i = 0; i < items.length; i++) {

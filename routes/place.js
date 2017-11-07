@@ -9,7 +9,7 @@ var itemsByPage = 9;
 
 
 
-// Place 
+// Display and Search Place
 router.get('/', function(req, res){
     
     // find place in the databse with the search query
@@ -58,7 +58,7 @@ router.get('/', function(req, res){
 
 
 
-// add new Place Form
+// Add new Place Form
 router.get('/new', middleware.isLoggedIn, function(req, res){
     res.render('./place/new');
 });
@@ -68,7 +68,7 @@ router.get('/new', middleware.isLoggedIn, function(req, res){
 
 
 
-// add new Place Logic
+// Add new Place Logic
 router.post('/', middleware.isLoggedIn,  function(req, res){
     var newname = req.sanitize(req.body.newname);
     var newcity = req.sanitize(req.body.newcity);
@@ -151,9 +151,6 @@ router.get('/:id/edit', middleware.isTheAuthor, function(req, res){
 
 
 
-
-
-// NEED TO BE SANITIZED //
 
 
 // Edit Place Logic
@@ -261,7 +258,7 @@ router.get('/page/:page_id', function(req, res){
 
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
+}
 
 
 module.exports = router;

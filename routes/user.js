@@ -10,10 +10,13 @@ router.get('/', function(req,res){
 });
 
 
+
 // Register User form
 router.get('/register', function(req, res){
     res.render('./user/register');
 });
+
+
 
 // Register User logic
 router.post('/register', function(req, res){
@@ -31,10 +34,14 @@ router.post('/register', function(req, res){
     });
 });
 
+
+
 // Login User form
 router.get('/login', function(req, res){
     res.render('./user/login');
 });
+
+
 
 // Login User logic
 router.post('/login', passport.authenticate('local', {
@@ -44,12 +51,14 @@ router.post('/login', passport.authenticate('local', {
 });
 
 
+
 // Logout User
 router.get('/logout', function(req, res){
     req.logout();
     req.flash('success', 'You has been logout');
     res.redirect('/placecamp/page/0');
 });
+
 
 
 

@@ -16,7 +16,6 @@
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <a class="navbar-brand logo" href="/"></a>
-                      
                         <ul class="nav navbar-nav">
                           <li class="nav-item active">
                             <a class="nav-link" href="/placecamp">Place list <span class="sr-only">(current)</span></a>
@@ -29,6 +28,7 @@
                         <ul class="nav navbar-nav navbar-right">
                           
                           <!--Display Signup login logout-->
+                          
                           <% if (!currentUser){ %>
                             <li class="nav-item">
                               <a class="nav-link" href="/login">Login <i class="fa fa-user" aria-hidden="true"></i></a>
@@ -39,11 +39,13 @@
                           <% }else { %>
                           
                           <!--Display current user-->
+                          
                           <li class="nav-item">
                             <a class="nav-link" >Hi!, Welcome <strong><%= currentUser.username %></strong></a>
                           </li>
                           
                           <!--Display logout-->
+                          
                           <li class="nav-item">
                             <a class="nav-link" href="/logout">Logout</a>
                           </li>
@@ -55,6 +57,7 @@
             
             
              <!--Banneer-->
+             
             <div class='container-fluid banneer'>
               <div class='banneerTitle'>
                 <h3>Top World Place</h3>
@@ -65,7 +68,8 @@
                   </form>
                
               </div>
-            </div><br>
+            </div>
+            <br>
             
             
             <!--flash message-->
@@ -84,14 +88,3 @@
                   </div>
                 <% } %>
             </div>
-            
-            
-           
-            
-            
-            
-            
-            
-            
-           
-            

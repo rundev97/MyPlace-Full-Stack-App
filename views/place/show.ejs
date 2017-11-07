@@ -1,140 +1,142 @@
 <% include ../layout/header %>
-<div class='container'>
+
+    <!--Show place page-->
     
-    <div class='row'>
-        <div class='col-lg-8'>
-            
-            <!-- Main Content--> 
-            
-            <h1><%= place.name %></h1>
-            <h3><%= place.city %> - <%= place.country %></h3>
-    
-            <img class='img-rounded img-responsive' src='<%= place.image %>' />
-            <br>
-            <div class='description'>
-                <em>Subimted by: </em><strong class='blue'><%= place.author.username  %></strong><%= ',  ' + moment(place.created).fromNow() %><br><br>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-lg-8'>
                 
-                <!--Display Edit and Delete if Login and Author-->
+                <!-- Main Content--> 
                 
-                <% if(currentUser && place.author.id.equals(currentUser._id)){ %>
+                <h1><%= place.name %></h1>
+                <h3><%= place.city %> - <%= place.country %></h3>
+                <img class='img-rounded img-responsive' src='<%= place.image %>' />
+                <br>
+                <div class='description'>
+                    <em>Subimted by: </em><strong class='blue'><%= place.author.username  %></strong><%= ',  ' + moment(place.created).fromNow() %><br><br>
                     
-                    <a href='/placecamp/<%= place._id %>/edit'>
-                        <button class='btn btn-warning btn-sm'>Edit</button>
-                    </a>
+                    <!--Display Edit and Delete if Login and Author-->
                     
-                    <form class='delete' action='/placecamp/<%= place._id %>?_method=DELETE' method='POST'>
-                        <button class='btn btn-danger btn-sm'>Delete</button>
-                    </form>
-                    
-                     <br><br>
-                 <% } %>
-               
-                <p><%= place.description %></p><br>
-            </div>
-            
-             
-            <!-- Comment Panel--> 
-            
-            <div class="well">
-                <div class='right'>
-                    <a class='btn btn-success' href='/placecamp/<%= place._id %>/comments/new'>
-                        Add New Comment
-                    </a>
-                </div>
-                
-                <h3 class="header"><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></i>Review This Place</h3><hr>
-                
-                <% place.comment.forEach(function(comment){ %>
-                
-                    <!--Display Edit and Delete Comment if Login and Author-->
-                
-                    <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
-                        <div class='right'>
-                            <form class='delete' action='/placecamp/<%= place._id%>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
-                                <button class='btn btn-xs btn-danger'>Delete</button>
-                            </form>
-                            
-                            <a href='/placecamp/<%= place._id %>/comments/<%= comment._id %>/edit'>
-                                <button class='btn btn-xs btn-warning'> Edit</button>
-                            </a>
-                        </div>
+                    <% if(currentUser && place.author.id.equals(currentUser._id)){ %>
                         
-                    <% } %>
-
-                    <p class="card-title"><i class="fa fa-user blue" aria-hidden="true"></i><strong class='blue'><%= comment.author.username %></strong>  -  <%= comment.content %><span class="pull-right"><%= moment(comment.created).fromNow() %></span></p>
-                    <hr>
-
-                <% }) %>
-            </div>
-            
-        </div>
-        
-        
-        <!-- Right Column Content--> 
-        
-        <div class='col-lg-4 showPage'>
-            
-            <!--Map panel-->
-            
-            <div id="map"></div>
-            <br>
-            
-            <!--More place panel-->
-            
-            <div class='panel panel-default'>
-                <div class='panel-heading'>
-                   <h4>More Place to See</h4> 
+                        <a href='/placecamp/<%= place._id %>/edit'>
+                            <button class='btn btn-warning btn-sm'>Edit</button>
+                        </a>
+                        
+                        <form class='delete' action='/placecamp/<%= place._id %>?_method=DELETE' method='POST'>
+                            <button class='btn btn-danger btn-sm'>Delete</button>
+                        </form>
+                        
+                         <br><br>
+                     <% } %>
+                   
+                    <p><%= place.description %></p><br>
                 </div>
-                <div class='panel-body'>
-                    <ul>
-                        <li><a href='https://fullstackdev-rundev97.c9users.io/placecamp/59f11ca0c15f860f184cfa20'>CN Tower Toronto</a></li>
-                        <li><a href='https://fullstackdev-rundev97.c9users.io/placecamp/59ee62b55237ff0b9f7fc3fd'>Dubai City</a></li>
-                        <li><a href='https://fullstackdev-rundev97.c9users.io/placecamp/59edbdc8fa5646145934ed94'>Musée du Louvre</a></li>
-                        <li><a href='https://fullstackdev-rundev97.c9users.io/placecamp/59f641925b57c558343332af'>Church in Seville</a></li>
-                        <li><a href='https://fullstackdev-rundev97.c9users.io/placecamp/59ee63d65237ff0b9f7fc3ff'>New York City</a></li>
-                        <li><a href='https://fullstackdev-rundev97.c9users.io/placecamp/59fa4ecb754ac9155ff80bee'>Salt Desert in Chilie</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!--More Photo panel-->
-            
-            <div class='panel panel-default'>
-                <div class='panel-heading'>
-                   <h4>More Photos</h4> 
-                </div>
-                <div class='panel-body miniPic'>
-                    <img src='/img/1.jpg'>
-                    <img src='/img/14.jpg'>
-                    <img src='/img/12.jpg'>
-                    <img src='/img/9.jpg'>
-                    <img src='/img/10.jpg'>
-                    <img src='/img/6.jpg'>
-                </div>
-            </div>
-            
-            <!--Partenaire panel-->
-            
-            <div class='panel panel-default'>
-                <div class='panel-heading'>
-                   <h4>Partenaire</h4> 
-                </div>
-                <div class='panel-body'>
-                    <ul>
-                        <li><a href='#'>Propulsion Academy</a></li>
-                        <li><a href='#'>Hack Reactor</a></li>
-                        <li><a href='#'>Dev Boot Camp</a></li>
-                    </ul>
+                
+                 
+                <!-- Comment Panel--> 
+                
+                <div class="well">
+                    <div class='right'>
+                        <a class='btn btn-success' href='/placecamp/<%= place._id %>/comments/new'>
+                            Add New Comment
+                        </a>
+                    </div>
                     
+                    <h3 class="header"><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></i>Review This Place</h3><hr>
+                    
+                    <% place.comment.forEach(function(comment){ %>
+                    
+                        <!--Display Edit and Delete Comment if Login and Author-->
+                    
+                        <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                            <div class='right'>
+                                <form class='delete' action='/placecamp/<%= place._id%>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
+                                    <button class='btn btn-xs btn-danger'>Delete</button>
+                                </form>
+                                
+                                <a href='/placecamp/<%= place._id %>/comments/<%= comment._id %>/edit'>
+                                    <button class='btn btn-xs btn-warning'> Edit</button>
+                                </a>
+                            </div>
+                            
+                        <% } %>
+    
+                        <p class="card-title"><i class="fa fa-user blue" aria-hidden="true"></i><strong class='blue'><%= comment.author.username %></strong>  -  <%= comment.content %><span class="pull-right"><%= moment(comment.created).fromNow() %></span></p>
+                        <hr>
+    
+                    <% }) %>
                 </div>
+                
             </div>
             
+            
+            <!-- Right Column Content--> 
+            
+            <div class='col-lg-4 showPage'>
+                
+                <!--Map panel-->
+                
+                <div id="map"></div>
+                <br>
+                
+                <!--More place panel-->
+                
+                <div class='panel panel-default'>
+                    <div class='panel-heading'>
+                       <h4>More Place to See</h4> 
+                    </div>
+                    <div class='panel-body'>
+                        <ul>
+                            <li><a href='https://fullstackdev-rundev97.c9users.io/placecamp/59f11ca0c15f860f184cfa20'>CN Tower Toronto</a></li>
+                            <li><a href='https://fullstackdev-rundev97.c9users.io/placecamp/59ee62b55237ff0b9f7fc3fd'>Dubai City</a></li>
+                            <li><a href='https://fullstackdev-rundev97.c9users.io/placecamp/59edbdc8fa5646145934ed94'>Musée du Louvre</a></li>
+                            <li><a href='https://fullstackdev-rundev97.c9users.io/placecamp/59f641925b57c558343332af'>Church in Seville</a></li>
+                            <li><a href='https://fullstackdev-rundev97.c9users.io/placecamp/59ee63d65237ff0b9f7fc3ff'>New York City</a></li>
+                            <li><a href='https://fullstackdev-rundev97.c9users.io/placecamp/59fa4ecb754ac9155ff80bee'>Salt Desert in Chilie</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!--More Photo panel-->
+                
+                <div class='panel panel-default'>
+                    <div class='panel-heading'>
+                       <h4>More Photos</h4> 
+                    </div>
+                    <div class='panel-body miniPic'>
+                        <img src='/img/1.jpg'>
+                        <img src='/img/14.jpg'>
+                        <img src='/img/12.jpg'>
+                        <img src='/img/9.jpg'>
+                        <img src='/img/10.jpg'>
+                        <img src='/img/6.jpg'>
+                    </div>
+                </div>
+                
+                <!--Partenaire panel-->
+                
+                <div class='panel panel-default'>
+                    <div class='panel-heading'>
+                       <h4>Partenaire</h4> 
+                    </div>
+                    <div class='panel-body'>
+                        <ul>
+                            <li><a href='#'>Propulsion Academy</a></li>
+                            <li><a href='#'>Hack Reactor</a></li>
+                            <li><a href='#'>Dev Boot Camp</a></li>
+                        </ul>
+                        
+                    </div>
+                </div>
+                
+            </div>
         </div>
     </div>
-</div>
 
 
     <!--Google Map Integration-->
+    
     <script>
       function initMap() {
         var lat = <%= place.lat %>;
