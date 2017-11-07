@@ -16,10 +16,11 @@ var express          = require('express'),
 
 
 // call seed() methode to laod basic mokup data in our app  
-//seedDB();
+// seedDB();
 
-// Mongoose Database connection 
-mongoose.connect('mongodb://localhost/placecamp', {useMongoClient: true});
+
+//Mongoose Database connection 
+mongoose.connect(process.env.DATABASEURL);
 
 
 // App setting and use
