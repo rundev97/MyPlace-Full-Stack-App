@@ -3,8 +3,8 @@ var router = express.Router();
 var Place = require('../models/placecamp');
 var middleware = require('../middleware');
 var geocoder = require('geocoder');
-var actualPage = 1;
-var itemsByPage = 6;
+var actualPage = 0;
+var itemsByPage = 9;
 
 
 
