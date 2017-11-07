@@ -15,12 +15,13 @@ var express          = require('express'),
     expressSanitizer = require('express-sanitizer');
 
 
-// call seed() methode to laod basic mokup data in our app  
+// call seed() Only first time to laod basic fake data in our app  
 // seedDB();
 
 
 //Mongoose Database connection 
-mongoose.connect(process.env.DATABASEURL);
+var url = (process.env.DATABASEURL || 'mongodb://localhost/placecamp' );
+mongoose.connect(url);
 
 
 // App setting and use
@@ -52,9 +53,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 
-// Middleware making the currentUser variable available in all the app
-// Instead of passing the variable from the route to the view with {currentUser: req.user}
-// wich make the variable ONlY available in the page render selected from the view folder
+// Making variable available in all the app using middleware
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
     res.locals.error = req.flash('error');
@@ -62,15 +61,18 @@ app.use(function(req, res, next){
     next();
 });
 
-// Routes
+
+// Routes Setting
 app.use('/placecamp/:id/comments', commentRoutes);
 app.use('/placecamp', placeRoutes);
 app.use(userRoutes);
 
 
-// Listen on Routes
+
+
+// Listen on Routes with environement variable
 app.listen(process.env.PORT, process.env.IP, function(){
-    console.log('PlaceCamp Node Server started');
+    console.log('PlaceCamp Node Server started on Port ' + process.env.PORT + 'and ip: ' + process.env.IP);
 });
 
 
