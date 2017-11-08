@@ -22,12 +22,12 @@ router.post('/', middleware.isLoggedIn, function(req, res){
     Place.findById(id, function(err, place){
         if (err || !place){
             req.flash('error', 'Sorry Didnt found this place in the database');
-            res.redirect('/placecamp/page/0');
+            res.redirect('/placecamp/page/1');
         } else {
             Comment.create(comment, function(err, comment){
                 if(err || !comment){
                     req.flash('error', 'Sorry Didnt found this comment in the database');
-                    res.redirect('/placecamp/page/0');
+                    res.redirect('/placecamp/page/1');
                 } else {
                     // add comment user based on the commentSchema and save it 
                     comment.author.id = req.user._id;
@@ -56,7 +56,7 @@ router.get('/:commentid/edit', middleware.isTheCommentAuthor, function(req, res)
     Comment.findById(req.params.commentid, function(err, comment){
         if(err || !comment){
             req.flash('error', 'Sorry Didnt found this comment in the database');
-            res.redirect('/placecamp/page/0');
+            res.redirect('/placecamp/page/1');
         } else {
             res.render('./comment/edit', {id: req.params.id, comment: comment });
         }
@@ -73,7 +73,7 @@ router.put('/:commentid', middleware.isTheCommentAuthor, function(req, res){
     Comment.findByIdAndUpdate(req.params.commentid, req.body.comment, function(err, comment){
         if (err || !comment){
             req.flash('error', 'Sorry Didnt found this comment in the database');
-            res.redirect('/placecamp/page/0');
+            res.redirect('/placecamp/page/1');
         } else {
             req.flash('success', 'Comment successfully edited');
             res.redirect('/placecamp/' + req.params.id);
@@ -94,7 +94,7 @@ router.delete('/:commentid', middleware.isTheCommentAuthor, function(req, res){
             res.redirect('back');
         } else {
             req.flash('success', 'Comment successfully deleted');
-            res.redirect('/placecamp');
+            res.redirect('/placecamp/page/1');
         }
     });
 });

@@ -40,18 +40,18 @@
         <div id='pagination'>
              <div class='row text-center'>
                  <ul class='page'>
-                    <% if ( actualPage > 0 ){ %>
+                    <% if ( actualPage > 1 ){ %>
                         <!--Display Preview button-->
-                        <li class='pageNr'><a href='/placecamp/page/<%= actualPage - 1 %>'>Previews</a></li>
+                        <li class='pageNr'><a href='/placecamp/page/<%= actualPage - 1 %>'>Previous</a></li>
                     <% } %>
                     
                    <!-- Dispay nbr of Page-->
-                    <% for(i = 0; i < nbrOfPage; i++){ %>
-                         <li class='pageNr'><a href='/placecamp/page/<%= i %>'><%= i + 1 %></a></li>
+                    <% for(i = 1; i < nbrOfPage + 1; i++){ %>
+                         <li class='pageNr'><a href='/placecamp/page/<%= i %>'><%= i %></a></li>
                     <% } %>
                     
                     <!--Display Next button-->
-                    <% if ( actualPage < nbrOfPage -1 ){ %>
+                    <% if ( actualPage < nbrOfPage ){ %>
                     <li class='pageNr'><a href='/placecamp/page/<%= actualPage + 1 %>'>Next</a></li>
                     <% } %>
                  </ul>

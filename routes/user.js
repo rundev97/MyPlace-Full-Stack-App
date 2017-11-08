@@ -28,7 +28,7 @@ router.post('/register', function(req, res){
         } else {
             passport.authenticate('local')(req, res, function(){
                 req.flash('success', 'Thanks for register, Welcome ' + user.username);
-                res.redirect('/placecamp/page/0');
+                res.redirect('/placecamp/page/1');
             });
         }
     });
@@ -45,7 +45,7 @@ router.get('/login', function(req, res){
 
 // Login User logic
 router.post('/login', passport.authenticate('local', {
-        successRedirect: '/placecamp/page/0',
+        successRedirect: '/placecamp/page/1',
         failureRedirect: '/login'
     }), function(req, res) {
 });
@@ -56,7 +56,7 @@ router.post('/login', passport.authenticate('local', {
 router.get('/logout', function(req, res){
     req.logout();
     req.flash('success', 'You has been logout');
-    res.redirect('/placecamp/page/0');
+    res.redirect('/placecamp/page/1');
 });
 
 

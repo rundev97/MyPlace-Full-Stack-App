@@ -3,8 +3,8 @@ var router = express.Router();
 var Place = require('../models/placecamp');
 var middleware = require('../middleware');
 var geocoder = require('geocoder');
-var actualPage = 0;
-var itemsByPage = 9;
+var actualPage = 1;
+var itemsByPage = 6;
 
 
 
@@ -48,7 +48,7 @@ router.get('/', function(req, res){
                     placeList: placeCampList,
                     actualPage: actualPage
                 });*/
-                res.redirect('/placecamp/page/0');
+                res.redirect('/placecamp/page/1');
             }
         });
     }
@@ -103,10 +103,10 @@ router.post('/', middleware.isLoggedIn,  function(req, res){
             Place.create(newplace, function(err, placecreated){
                if (err || !placecreated){
                    req.flash('error', 'Sorry Didnt found this place in the database');
-                   res.redirect('/placecamp/page/0');
+                   res.redirect('/placecamp/page/1');
                } else {
                    req.flash('success', 'New place successfully created ');
-                   res.redirect('/placecamp');
+                   res.redirect('/placecamp/page/1');
                }
             });
         }
@@ -124,7 +124,7 @@ router.get('/:id', function(req, res){
     Place.findById(req.params.id).populate('comment').exec(function(err, placeReceive){
         if (err || !placeReceive){
             req.flash('error', 'Error: This place dont exist in the database');
-            res.redirect('/placecamp/page/0');
+            res.redirect('/placecamp/page/1');
         } else {
             res.render('./place/show', {place: placeReceive });
         }
@@ -141,7 +141,7 @@ router.get('/:id/edit', middleware.isTheAuthor, function(req, res){
     Place.findById(req.params.id, function(err, place){
         if (err || !place){
             req.flash('error', 'Sorry Didnt found this place in the database');
-            res.redirect('/placecamp/page/0');
+            res.redirect('/placecamp/page/1');
         } else {
             res.render('place/edit', {place: place});
         } 
@@ -199,7 +199,7 @@ router.delete('/:id', middleware.isTheAuthor, function(req, res){
             console.log(err);
         } else {
             req.flash('success', 'Place successfully removed from the database');
-            res.redirect('/placecamp/page/0');
+            res.redirect('/placecamp/page/1');
         }
     });
     
@@ -216,11 +216,6 @@ router.get('/page/:page_id', function(req, res){
             } else {
                 actualPage = Number(req.params.page_id);
                 
-                /*checking the value of page_id for secure*/
-                if(actualPage == undefined || actualPage < 0 || actualPage > placeCampList.length || isNaN(actualPage)){
-                    actualPage = 0;
-                }
-                
                 /*Split the placeCamList in page of n items*/
                 var totalItems = placeCampList.length;
                 console.log('TotelItems ' + totalItems);
@@ -229,8 +224,18 @@ router.get('/page/:page_id', function(req, res){
                 console.log('nbrOfPage ' + nbrOfPage);
                 console.log('actualPage ' + actualPage);
                 
-                var tableOfPage = [];
                 
+                /*checking the value of page_id for secure*/
+                if(actualPage == undefined || actualPage < 1 || actualPage > nbrOfPage || isNaN(actualPage)){
+                    actualPage = 1;
+                    res.redirect('/placecamp/page/1');
+                }
+                
+                var tableOfPage = [];
+                // Push an empty String to tableOfPage[0] to force the pushMethode in the pagination logic to start at tableOfPage[1]
+                tableOfPage.push('');
+                
+                // Split the camplist in page of n itemByPage element and push them in the tableOfPage from position 1
                 while(placeCampList.length > 0){
                     tableOfPage.push(placeCampList.splice(0,itemsByPage));
                 }
