@@ -1,4 +1,4 @@
-App FullStack With Authentification and Authorization | Used Technologie: 
+#App FullStack With Authentification and Authorization using: 
 Rest CRUD, 
 Javascript, 
 Node JS, 
